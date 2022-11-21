@@ -1,5 +1,10 @@
 import Head from "next/head";
 import "../styles/style.scss";
+import HomeIcon from "../public/home.svg";
+import ProjectsIcon from "../public/projects.svg";
+import AboutIcon from "../public/about.svg";
+import TechnologiesIcon from "../public/technologies.svg";
+import ContactIcon from "../public/contact.svg";
 
 export default function Home() {
 	return (
@@ -13,7 +18,7 @@ export default function Home() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<main className="content">
-				<section className="home">
+				<section className="home const-width">
 					<div className="text">
 						<div className="container">
 							<h2>Desenvolvedor</h2>
@@ -23,16 +28,39 @@ export default function Home() {
 							</p>
 						</div>
 					</div>
-					<div className="img">
-						<img src="/daniel-oliveira.jpeg" alt="foto minha" />
-					</div>
+					<div className="img"></div>
 				</section>
 				<nav className="navbar">
-					<li className="nav-item">Home</li>
-					<li className="nav-item">Projetos</li>
-					<li className="nav-item">Sobre</li>
-					<li className="nav-item">Tecnologias</li>
-					<li className="nav-item">Contato</li>
+					<li className="nav-item">
+						<span className="icon">
+							<HomeIcon></HomeIcon>
+						</span>
+						<span className="text">Home</span>
+					</li>
+					<li className="nav-item">
+						<span className="icon">
+							<ProjectsIcon></ProjectsIcon>
+						</span>
+						<span className="text">Projetos</span>
+					</li>
+					<li className="nav-item">
+						<span className="icon">
+							<AboutIcon></AboutIcon>
+						</span>
+						<span className="text">Sobre</span>
+					</li>
+					<li className="nav-item">
+						<span className="icon">
+							<TechnologiesIcon></TechnologiesIcon>
+						</span>
+						<span className="text">Tecnologias</span>
+					</li>
+					<li className="nav-item">
+						<span className="icon">
+							<ContactIcon></ContactIcon>
+						</span>
+						<span className="text">Contato</span>
+					</li>
 				</nav>
 				<section className="projects">
 					<div className="section-header">
