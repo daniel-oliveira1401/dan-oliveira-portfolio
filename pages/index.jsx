@@ -5,8 +5,37 @@ import ProjectsIcon from "../public/projects.svg";
 import AboutIcon from "../public/about.svg";
 import TechnologiesIcon from "../public/technologies.svg";
 import ContactIcon from "../public/contact.svg";
+import CopyIcon from "../public/copy.svg";
+import EmailIcon from "../public/email.svg";
+import LinkedinIcon from "../public/linkedin.svg";
+import { useEffect } from "react";
 
 export default function Home() {
+	function copyToClipboard(text) {
+		navigator.clipboard.writeText(text);
+	}
+
+	useEffect(() => {
+		let aboutBg = document.querySelector(".about .bg-container");
+		let bgEffect = document.querySelector(".about .bg-effect");
+		aboutBg.addEventListener("mousemove", (e) => {
+			bgEffect.style.top = e.layerY - 75 + "px";
+			bgEffect.style.left = e.layerX - 75 + "px";
+		});
+
+		let navBg = document.querySelector(".navbar .bg-effect");
+		let navbarItems = document.querySelector(".navbar .items");
+		let content = document.querySelector("main.content");
+		let totalScroll = 0,
+			currentPercent = 0;
+		content.addEventListener("scroll", (e) => {
+			totalScroll =
+				content.scrollHeight - content.getBoundingClientRect().height;
+			currentPercent = (content.scrollTop / totalScroll) * 100;
+			navBg.style.width = currentPercent + "%";
+		});
+	}, []);
+
 	return (
 		<div>
 			<Head>
@@ -18,7 +47,7 @@ export default function Home() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<main className="content">
-				<section className="home const-width">
+				<section id="home" className="home const-width">
 					<div className="text">
 						<div className="container">
 							<h2>Desenvolvedor</h2>
@@ -31,43 +60,50 @@ export default function Home() {
 					<div className="img"></div>
 				</section>
 				<nav className="navbar">
-					<li className="nav-item">
-						<span className="icon">
-							<HomeIcon></HomeIcon>
-						</span>
-						<span className="text">Home</span>
-					</li>
-					<li className="nav-item">
-						<span className="icon">
-							<ProjectsIcon></ProjectsIcon>
-						</span>
-						<span className="text">Projetos</span>
-					</li>
-					<li className="nav-item">
-						<span className="icon">
-							<AboutIcon></AboutIcon>
-						</span>
-						<span className="text">Sobre</span>
-					</li>
-					<li className="nav-item">
-						<span className="icon">
-							<TechnologiesIcon></TechnologiesIcon>
-						</span>
-						<span className="text">Tecnologias</span>
-					</li>
-					<li className="nav-item">
-						<span className="icon">
-							<ContactIcon></ContactIcon>
-						</span>
-						<span className="text">Contato</span>
-					</li>
+					<div className="items">
+						<div className="bg-effect"></div>
+						<a href="#home" className="nav-item">
+							<span className="icon">
+								<HomeIcon></HomeIcon>
+							</span>
+							<span className="text">Home</span>
+						</a>
+						<a href="#projects" className="nav-item">
+							<span className="icon">
+								<ProjectsIcon></ProjectsIcon>
+							</span>
+							<span className="text">Projetos</span>
+						</a>
+						<a href="#about" className="nav-item">
+							<span className="icon">
+								<AboutIcon></AboutIcon>
+							</span>
+							<span className="text">Sobre</span>
+						</a>
+						<a href="#technologies" className="nav-item">
+							<span className="icon">
+								<TechnologiesIcon></TechnologiesIcon>
+							</span>
+							<span className="text">Tecnologias</span>
+						</a>
+						<a href="#contact" className="nav-item">
+							<span className="icon">
+								<ContactIcon></ContactIcon>
+							</span>
+							<span className="text">Contato</span>
+						</a>
+					</div>
 				</nav>
 				<section className="projects">
-					<div className="section-header">
+					<div id="projects" className="section-header">
 						<div className="text">Projetos</div>
 					</div>
 					<div className="projects__list const-width">
-						<div className="project">
+						<a
+							target={"_blank"}
+							href="https://frontendmentor-projects-showcase.vercel.app/home"
+							className="project"
+						>
 							<h3 className="project__title">Projetos Frontend Mentor</h3>
 							<div className="project__img">
 								<img
@@ -79,8 +115,12 @@ export default function Home() {
 								Projetos que concluí com base em designs oferecidos pela
 								plataforma Frontend Mentor.
 							</p>
-						</div>
-						<div className="project">
+						</a>
+						<a
+							target={"_blank"}
+							href="https://nextjs-react-showcase.vercel.app/"
+							className="project"
+						>
 							<h3 className="project__title">
 								Projetos React <br /> e Nextjs
 							</h3>
@@ -94,53 +134,57 @@ export default function Home() {
 								Projetos que concluí com base em ideias e designs oferecidos
 								pelo curso Learn React da plataforma Scrimba.
 							</p>
-						</div>
+						</a>
 					</div>
 				</section>
 				<section className="about">
-					<div className="section-header">
+					<div id="about" className="section-header">
 						<div className="text">Um pouco sobre mim</div>
 					</div>
-					<div className="text-container">
-						<div className="topics const-width">
-							<div className="topic">
-								<h3 className="topic__title">Quem sou eu?</h3>
-								<p className="topic__content">
-									Oi, meu nome é Daniel, tenho 19 anos, moro no Brasil e amo
-									Desenvolvimento Web :)
-								</p>
-							</div>
-							<div className="topic">
-								<h1 className="topic__title">Como comecei a programar?</h1>
-								<p className="topic__content">
-									Entrei em contato com desenvolvimento Web durante o curso de
-									Técnico em Mecatrônica que concluí no SENAI. A partir desse
-									momento, me apaixonei por programação e decidi seguir a
-									carreira de Desenvolvedor Web.
-								</p>
-							</div>
-							<div className="topic">
-								<h1 className="topic__title">Por quê desenvolvimento Web?</h1>
-								<p className="topic__content">
-									Ter a possibilidade de desenvolver aplicações que podem ser
-									acessadas de qualquer lugar do mundo com o único requisito
-									sendo conexão com a internet é algo mágico e que me motiva a
-									querer investir nesse tipo de tecnologia.
-								</p>
-							</div>
-							<div className="topic">
-								<h1 className="topic__title">Onde quero chegar?</h1>
-								<p className="topic__content">
-									No futuro, pretendo me tornar um Desenvolvedor Web Fullstack,
-									tendo domínio tanto do Frontend como do Backend, para que
-									assim eu seja capaz de construir aplicações ainda melhores!
-								</p>
+					<div className="bg-container">
+						<div className="bg-effect"></div>
+						<div className="text-container">
+							<div className="topics const-width">
+								<div className="topic">
+									<h3 className="topic__title">Quem sou eu?</h3>
+									<p className="topic__content">
+										Oi, meu nome é Daniel, tenho 19 anos, moro no Brasil e amo
+										Desenvolvimento Web :)
+									</p>
+								</div>
+								<div className="topic">
+									<h1 className="topic__title">Como comecei a programar?</h1>
+									<p className="topic__content">
+										Entrei em contato com desenvolvimento Web durante o curso de
+										Técnico em Mecatrônica que concluí no SENAI. A partir desse
+										momento, me apaixonei por programação e decidi seguir a
+										carreira de Desenvolvedor Web.
+									</p>
+								</div>
+								<div className="topic">
+									<h1 className="topic__title">Por quê desenvolvimento Web?</h1>
+									<p className="topic__content">
+										Ter a possibilidade de desenvolver aplicações que podem ser
+										acessadas de qualquer lugar do mundo com o único requisito
+										sendo conexão com a internet é algo mágico e que me motiva a
+										querer investir nesse tipo de tecnologia.
+									</p>
+								</div>
+								<div className="topic">
+									<h1 className="topic__title">Onde quero chegar?</h1>
+									<p className="topic__content">
+										No futuro, pretendo me tornar um Desenvolvedor Web
+										Fullstack, tendo domínio tanto do Frontend como do Backend,
+										para que assim eu seja capaz de construir aplicações ainda
+										melhores!
+									</p>
+								</div>
 							</div>
 						</div>
 					</div>
 				</section>
 				<section className="technologies">
-					<div className="section-header">
+					<div id="technologies" className="section-header">
 						<div className="text">Tecnologias</div>
 					</div>
 					<div className="description const-width">
@@ -293,7 +337,7 @@ export default function Home() {
 					</div>
 				</section>
 				<section className="contact">
-					<div className="section-header">
+					<div id="contact" className="section-header">
 						<div className="text">Contato</div>
 					</div>
 					<div className="container const-width">
@@ -304,24 +348,85 @@ export default function Home() {
 						</p>
 						<div className="contact-means">
 							<div className="contact-mean">
-								<img src="/email.svg" alt="icone de email" />
-								<a href="">daniel.oliveira1401@outlook.com</a>
-								<img src="/copy.svg" alt="icone de copiar" />
+								<a href="mailto:daniel.oliveira1401@outlook.com">
+									<EmailIcon
+										className="icon"
+										src="/email.svg"
+										alt="icone de email"
+									/>
+								</a>
+								<a
+									target={"_blank"}
+									className="text-link"
+									href="mailto:daniel.oliveira1401@outlook.com"
+								>
+									daniel.oliveira1401@outlook.com
+								</a>
+								<CopyIcon
+									className="icon"
+									onClick={(e) => {
+										copyToClipboard("daniel.oliveira1401@outlook.com");
+										e.target.classList.add("copied");
+									}}
+									src="/copy.svg"
+									alt="icone de copiar"
+								/>
 							</div>
 							<div className="contact-mean">
-								<img src="/linkedin.svg" alt="icone de email" />
-								<a href="">
+								<a href="https://www.linkedin.com/in/daniel-oliveira-807654234/">
+									<LinkedinIcon
+										className="icon"
+										src="/linkedin.svg"
+										alt="icone de email"
+									/>
+								</a>
+								<a
+									target={"_blank"}
+									className="text-link"
+									href="https://www.linkedin.com/in/daniel-oliveira-807654234/"
+								>
 									https://www.linkedin.com/in/daniel-oliveira-807654234/
 								</a>
-								<img src="/copy.svg" alt="icone de copiar" />
+								<CopyIcon
+									className="icon"
+									onClick={(e) => {
+										copyToClipboard(
+											"https://www.linkedin.com/in/daniel-oliveira-807654234/"
+										);
+										e.target.classList.add("copied");
+									}}
+									src="/copy.svg"
+									alt="icone de copiar"
+								/>
 							</div>
 						</div>
-						<div className="btn-download-cv">
+						<a
+							download={"curriculo-daniel-oliveira"}
+							href="/curriculo_daniel_oliveira.pdf"
+							className="btn-download-cv"
+						>
 							<button>Baixar Currículo</button>
-						</div>
+						</a>
 					</div>
 				</section>
-				<div style={{ height: "300vh" }}></div>
+				<footer>
+					<div className="col">
+						<a href="" className="link">
+							Github
+						</a>
+						<a href="" className="link">
+							Portfólio Antigo
+						</a>
+					</div>
+					<div className="col">
+						<a href="" className="link">
+							LinkedIn
+						</a>
+						<a href="" className="link">
+							React Projects Showcase
+						</a>
+					</div>
+				</footer>
 			</main>
 		</div>
 	);
