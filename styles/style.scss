@@ -100,6 +100,7 @@ main.content {
 				padding-top: 2rem;
 			}
 			.container {
+				padding: 0.5rem;
 				h2 {
 					font-size: 32px;
 					@include mobile() {
@@ -112,7 +113,7 @@ main.content {
 					color: $blue;
 					margin-bottom: 78px;
 					@include mobile() {
-						font-size: 21vw;
+						font-size: 20vw;
 						margin-bottom: 10px;
 					}
 				}
@@ -255,6 +256,9 @@ main.content {
 			display: grid;
 			place-items: center;
 			padding: 1rem;
+			@include mobile() {
+				pointer-events: none;
+			}
 			.topics {
 				.topic {
 					margin-block: 2rem;
