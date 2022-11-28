@@ -15,6 +15,80 @@ export default function Home() {
 		navigator.clipboard.writeText(text);
 	}
 
+	function activateMagnetButton() {
+		let magnetArea = document.querySelector(".contact .magnet-area");
+		let downloadBtn = document.querySelector(".contact .btn-download-cv");
+
+		magnetArea.addEventListener("mouseover", (e) => {
+			//firefox transitions dont work well with this button.
+			if ($.browser.mozilla) {
+				downloadBtn.classList.remove("transition");
+			}
+		});
+
+		//my humble implementation
+		/*
+		magnetArea.addEventListener("mousemove", (e) => {
+			let x = e.layerX - e.originalTarget.offsetLeft;
+			let y = e.layerY - e.originalTarget.offsetTop;
+
+			let relativeX = Math.floor(x - halfWidth);
+			let relativeY = Math.floor(y - halfHeight);
+
+			let xPercent = Math.abs(relativeX) / Math.abs(halfWidth);
+			let yPercent = Math.abs(relativeY) / Math.abs(halfHeight);
+
+			let xDirection = relativeX / Math.abs(relativeX);
+			let yDirection = relativeY / Math.abs(relativeY);
+
+			let maxX = 70;
+			let maxY = 70;
+
+			let finalX = maxX * xPercent * xDirection;
+			let finalY = maxY * yPercent * yDirection;
+
+			downloadBtn.style.transform = `translate(${finalX}px, ${finalY}px)`;
+		});
+		*/
+
+		//some youtube guy's implementation that's way faster than mine 💁‍♂️
+		magnetArea.addEventListener("mousemove", (e) => {
+			const pos = magnetArea.getBoundingClientRect();
+			const x = e.pageX - pos.left - pos.width / 2;
+			const y = e.pageY - pos.top - pos.height / 2;
+			downloadBtn.style.transform = `translate(${x * 0.3}px, ${y * 0.7}px)`;
+		});
+
+		magnetArea.addEventListener("mouseout", (e) => {
+			downloadBtn.classList.add("transition");
+			downloadBtn.style.transform = "translate(0px, 0px)";
+		});
+	}
+
+	function registerIntersectionObservers() {
+		let projects = document.querySelectorAll(".project");
+
+		let observer = new IntersectionObserver(fadeInProjects, {
+			root: document.querySelector("body"),
+			threshold: 0.3
+		});
+
+		projects.forEach((project) => {
+			observer.observe(project);
+		});
+
+		function fadeInProjects(entries, observer) {
+			entries.forEach(({ target, isIntersecting }) => {
+				if (isIntersecting) {
+					target.classList.add("fade-in");
+					observer.unobserve(target);
+				} else {
+					// target.classList.remove("fade-in");
+				}
+			});
+		}
+	}
+
 	useEffect(() => {
 		let aboutBg = document.querySelector(".about .bg-container");
 		let bgEffect = document.querySelector(".about .bg-effect");
@@ -24,7 +98,7 @@ export default function Home() {
 		});
 
 		let navBg = document.querySelector(".navbar .bg-effect");
-		let navbarItems = document.querySelector(".navbar .items");
+		// let navbarItems = document.querySelector(".navbar .items");
 		let content = document.querySelector("main.content");
 		let totalScroll = 0,
 			currentPercent = 0;
@@ -34,6 +108,9 @@ export default function Home() {
 			currentPercent = (content.scrollTop / totalScroll) * 100;
 			navBg.style.width = currentPercent + "%";
 		});
+
+		activateMagnetButton();
+		registerIntersectionObservers();
 	}, []);
 
 	return (
@@ -347,7 +424,7 @@ export default function Home() {
 							(disponível no meu currículo).
 						</p>
 						<div className="contact-means">
-							<div className="contact-mean">
+							<div data-email className="contact-mean">
 								<a href="mailto:daniel.oliveira1401@outlook.com">
 									<EmailIcon
 										className="icon"
@@ -367,12 +444,22 @@ export default function Home() {
 									onClick={(e) => {
 										copyToClipboard("daniel.oliveira1401@outlook.com");
 										e.target.classList.add("copied");
+										document
+											.querySelector("[data-email] .feedback")
+											.classList.add("show");
+										//hide the message after 2 seconds
+										setTimeout(() => {
+											document
+												.querySelector("[data-email] .feedback")
+												.classList.remove("show");
+										}, 2000);
 									}}
 									src="/copy.svg"
 									alt="icone de copiar"
 								/>
+								<div className="feedback">Copiado!</div>
 							</div>
-							<div className="contact-mean">
+							<div data-linkedin className="contact-mean">
 								<a href="https://www.linkedin.com/in/daniel-oliveira-807654234/">
 									<LinkedinIcon
 										className="icon"
@@ -394,35 +481,65 @@ export default function Home() {
 											"https://www.linkedin.com/in/daniel-oliveira-807654234/"
 										);
 										e.target.classList.add("copied");
+										document
+											.querySelector("[data-linkedin] .feedback")
+											.classList.add("show");
+										//hide the message after 2 seconds
+										setTimeout(() => {
+											document
+												.querySelector("[data-linkedin] .feedback")
+												.classList.remove("show");
+										}, 2000);
 									}}
 									src="/copy.svg"
 									alt="icone de copiar"
 								/>
+								<div className="feedback">Copiado!</div>
 							</div>
 						</div>
-						<a
-							download={"curriculo-daniel-oliveira"}
-							href="/curriculo_daniel_oliveira.pdf"
-							className="btn-download-cv"
-						>
-							<button>Baixar Currículo</button>
-						</a>
+						<div className="magnet-area-wrapper">
+							<a
+								download={"curriculo-daniel-oliveira"}
+								href="/curriculo_daniel_oliveira.pdf"
+								className="magnet-area"
+							>
+								<div className="btn-download-cv transition">
+									<button>Baixar Currículo</button>
+								</div>
+							</a>
+						</div>
 					</div>
 				</section>
 				<footer>
 					<div className="col">
-						<a href="" className="link">
+						<a
+							href="https://github.com/daniel-oliveira1401"
+							target={"_blank"}
+							className="link"
+						>
 							Github
 						</a>
-						<a href="" className="link">
+						<a
+							href="https://daniel-oliveira1401.github.io/"
+							target={"_blank"}
+							className="link"
+						>
 							Portfólio Antigo
 						</a>
 					</div>
 					<div className="col">
-						<a href="" className="link">
+						<a
+							target={"_blank"}
+							href="https://www.linkedin.com/in/daniel-oliveira-807654234/"
+							className="link"
+						>
 							LinkedIn
 						</a>
-						<a href="" className="link">
+						<a
+							href="https://nextjs-react-showcase.vercel.app/"
+							target={"_blank"}
+							className="link"
+						>
 							React Projects Showcase
 						</a>
 					</div>
