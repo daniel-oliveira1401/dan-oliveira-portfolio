@@ -123,7 +123,7 @@ export default function Home() {
 				/>
 				<meta property="og:title" content={"Portfolio Daniel Oliveira"} />
 
-				<meta property="og:image" content="/og_img.jpg" />
+				<meta property="og:image" content="/og_img.png" />
 				<meta
 					property="og:description"
 					content="Olá, seja bem vindo ao meu portfolio ✨"
