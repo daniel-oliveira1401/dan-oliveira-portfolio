@@ -116,12 +116,21 @@ export default function Home() {
 	return (
 		<div>
 			<Head>
-				<title>Daniel Oliveira - Portfolio</title>
 				<meta
 					name="description"
-					content="Portfolio do Daniel Oliveira. Venha me conhecer!"
+					content="Olá, seja bem vindo ao meu portfolio ✨"
+					key={"desc"}
 				/>
-				<link rel="icon" href="/favicon.ico" />
+				<meta property="og:title" content={"Portfolio Daniel Oliveira"} />
+
+				<meta property="og:image" content="/og_img.jpg" />
+				<meta
+					property="og:description"
+					content="Olá, seja bem vindo ao meu portfolio ✨"
+				/>
+
+				<title>Daniel Oliveira - Portfolio</title>
+				<link rel="icon" href="/og_img.png" />
 			</Head>
 			<main className="content">
 				<section id="home" className="home const-width">
