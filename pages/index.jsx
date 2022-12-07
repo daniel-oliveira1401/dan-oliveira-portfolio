@@ -116,21 +116,41 @@ export default function Home() {
 	return (
 		<div>
 			<Head>
+				{/* <!-- Primary Meta Tags --> */}
+				<title>Daniel Oliveira - Portfolio</title>
+				<meta name="title" content="Daniel Oliveira - Portfolio" />
 				<meta
 					name="description"
 					content="Olá, seja bem vindo ao meu portfolio ✨"
-					key={"desc"}
 				/>
-				<meta property="og:title" content={"Portfolio Daniel Oliveira"} />
 
-				<meta property="og:image" content="/og_img.png" />
+				{/* <!-- Open Graph / Facebook --> */}
+				<meta property="og:type" content="website" />
+				<meta
+					property="og:url"
+					content="https://dan-oliveira-portfolio.vercel.app/"
+				/>
+				<meta property="og:title" content="Daniel Oliveira - Portfolio" />
 				<meta
 					property="og:description"
 					content="Olá, seja bem vindo ao meu portfolio ✨"
 				/>
+				<meta property="og:image" content="/og_img.png" />
 
-				<title>Daniel Oliveira - Portfolio</title>
-				<link rel="icon" href="/og_img.png" />
+				{/* <!-- Twitter --> */}
+				<meta property="twitter:card" content="summary_large_image" />
+				<meta
+					property="twitter:url"
+					content="https://dan-oliveira-portfolio.vercel.app/"
+				/>
+				<meta property="twitter:title" content="Daniel Oliveira - Portfolio" />
+				<meta
+					property="twitter:description"
+					content="Olá, seja bem vindo ao meu portfolio ✨"
+				/>
+				<meta property="twitter:image" content="/og_img.png" />
+
+				<link rel="icon" href="/favicon.png" />
 			</Head>
 			<main className="content">
 				<section id="home" className="home const-width">
